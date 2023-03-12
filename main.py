@@ -22,10 +22,14 @@ def menu():
       path=input("Add employees from path:")
       Employees.addemployeebypath(path)
   if choice == 3:
-     Employees.deletemployees()
+     id_todelete = int(input("enter employee id:"))
+     Employees.removemployee(id_todelete)
   if choice ==4:
+      id_todelete = int(input("enter employee id:"))
       Employees.searchemployee()
   if choice == 5:
-     Employees.deletebypath()
+      Employees.deletebypath()
+  if choice == 6:
+     Employees.showallemployees()
 
 menu()
