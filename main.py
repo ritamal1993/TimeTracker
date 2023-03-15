@@ -11,6 +11,7 @@ def menu():
   print("3. delete employees \n")
   print("4. Search and display the details for a particular employee\n")
   print("5. delete by Employee path\n")
+  print("6. show all employees\n")
   print("0. Quit\n")
 
   choice = int(input("Please select an option using the numbers above"))
@@ -26,9 +27,10 @@ def menu():
      Employees.removemployee(id_todelete)
   if choice ==4:
       id_todelete = int(input("enter employee id:"))
-      Employees.searchemployee()
+      Employees.searchemployee(id)
   if choice == 5:
-      Employees.deletebypath()
+      path = input("deleting employees from path:")
+      Employees.deletemployees(path)
   if choice == 6:
      Employees.showallemployees()
 

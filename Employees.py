@@ -1,3 +1,5 @@
+import os
+
 import pandas as pd
 
 
@@ -16,6 +18,7 @@ class Employees:
 
 
 def addemployee():
+
     try:
         print("Adding a new employee, please enter the following details\n")
         employee_id = int(input("Enter your employee ID\n"))
@@ -32,8 +35,7 @@ def addemployee():
 
         # Make data frame of above data
         df = pd.DataFrame(data)
-        # lf = pd.read_csv('database.csv')
-        #if lf.empty:
+
         # append data frame to CSV file
 
         df.to_csv('database.csv', mode='a', index=False, header=True)
@@ -66,17 +68,24 @@ def addemployeebypath(path):
 def removemployee(employee):
     data = pd.read_csv('database.csv')
     data.set_index('Id', inplace=True)
-    data = data.drop(employee, axis=0)
+    data = data.drop(str(employee), axis=0)
     data.to_csv('database.csv')
 
 
 # Delete employees from file
-def deletemployees():
-    return
+def deletemployees(path):
+    print("Deleting a new employees, from path:\n" + str(path))
+    if (os.path.exists(path) and os.path.isfile(path)):
+        os.remove(path)
+        print("file deleted")
+    else:
+        print("file not found")
+
 
 
 def searchemployee(id):
     df = pd.read_csv('database.csv')
+    df.set_index('Id', inplace=True)
     print(df[id])
 
 
