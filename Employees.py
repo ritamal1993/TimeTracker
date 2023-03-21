@@ -51,12 +51,45 @@ def addemployee():
     except ValueError:
         print("Oops, something went wrong!")
 
+def addemployee_ifnotempty():
+
+    try:
+        print("Adding a new employee, please enter the following details\n")
+        employee_id = int(input("Enter your employee ID\n"))
+        name = input("Enter your name\n")
+        phone = input("Enter your phone\n")
+        age = input("Enter your age\n")
+
+        data = ({
+            'Id': [employee_id],
+            'name': [name],
+            'phone': [phone],
+            'age': [age]
+        })
+
+        # Make data frame of above data
+        df = pd.DataFrame(data)
+
+        # append data frame to CSV file
+
+        df.to_csv('database.csv', mode='a', index=False, header=False)
+       # else:
+         #  df.to_csv('database.csv', mode='a', index=False, header=False)
+
+        # print message
+
+
+
+        print("Data appended successfully.")
+
+    except ValueError:
+        print("Oops, something went wrong!")
 
 # Add employee from file
 
 def addemployeebypath(path):
     try:
-        print("Adding a new employees, from path:\n" + str(path))
+        print("Adding a new employees, from file:\n" + str(path))
         data = pd.read_csv(str(path))
         data.to_csv('database.csv', mode='a', index=False, header=False)
 
@@ -66,6 +99,7 @@ def addemployeebypath(path):
 
 # Delete employee manually
 def removemployee(employee):
+    print("removing %, from file:\n" + str(employee))
     data = pd.read_csv('database.csv')
     data.set_index('Id', inplace=True)
     data = data.drop(str(employee), axis=0)
@@ -74,7 +108,7 @@ def removemployee(employee):
 
 # Delete employees from file
 def deletemployees(path):
-    print("Deleting a new employees, from path:\n" + str(path))
+    print("Deleting file:\n" + str(path))
     if (os.path.exists(path) and os.path.isfile(path)):
         os.remove(path)
         print("file deleted")
@@ -89,9 +123,9 @@ def searchemployee(id):
     print(df[id])
 
 
-def deletebypath():
-    pass
-
+def deletebypath(path):
+    f = open(path, "w+")
+    f.close()
 
 def showallemployees():
     df = pd.read_csv('database.csv')
