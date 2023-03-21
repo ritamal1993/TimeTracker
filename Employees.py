@@ -4,11 +4,11 @@ import pandas as pd
 
 
 class Employees:
-    def __init__(self, employee_id, name, phone, age):
-        self.employee_id = employee_id
-        self.name = name
-        self.phone = phone
-        self.age = age
+   def __init__(self, employee_id, name, phone, age):
+       self.employee_id = employee_id
+       self.name = name
+       self.phone = phone
+       self.age = age
 
 
 
@@ -17,7 +17,7 @@ class Employees:
 # guven an error message to the user if something is wrong
 
 
-def addemployee():
+def addemployee(path):
 
     try:
         print("Adding a new employee, please enter the following details\n")
@@ -38,7 +38,7 @@ def addemployee():
 
         # append data frame to CSV file
 
-        df.to_csv('database.csv', mode='a', index=False, header=True)
+        df.to_csv(path, mode='a', index=False, header=True)
        # else:
          #  df.to_csv('database.csv', mode='a', index=False, header=False)
 
@@ -51,7 +51,7 @@ def addemployee():
     except ValueError:
         print("Oops, something went wrong!")
 
-def addemployee_ifnotempty():
+def addemployee_ifnotempty(path):
 
     try:
         print("Adding a new employee, please enter the following details\n")
@@ -72,7 +72,7 @@ def addemployee_ifnotempty():
 
         # append data frame to CSV file
 
-        df.to_csv('database.csv', mode='a', index=False, header=False)
+        df.to_csv(path, mode='a', index=False, header=False)
        # else:
          #  df.to_csv('database.csv', mode='a', index=False, header=False)
 
@@ -91,7 +91,8 @@ def addemployeebypath(path):
     try:
         print("Adding a new employees, from file:\n" + str(path))
         data = pd.read_csv(str(path))
-        data.to_csv('database.csv', mode='a', index=False, header=False)
+        file= input("Adding a new employees, to file you chosee print the file name:\n")
+        data.to_csv(file, mode='a', index=False, header=False)
 
     except ValueError:
         print("Oops, something went wrong!")

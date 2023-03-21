@@ -1,11 +1,12 @@
 import Attendant_log
 import Employees
 import pandas as pd
-
+import os
 
 
 def menu():
   print("Welcome to the Employee database\n")
+  print("-1. Add a new file\n")
   print("1. Add a new employee\n")
   print("2. add by path existing employee\n")
   print("3. delete employees by id \n")
@@ -16,17 +17,20 @@ def menu():
   print("0. Quit\n")
 
   choice = int(input("Please select an option using the numbers above"))
+  if choice==-1:
+   path = input("Enter file name:")
+   with open(path, 'w') as file:
+       pass
   if choice == 0:
      return
   if choice == 1:
-     data = pd.read_csv('database.csv')
-     if(data.empty):
-         Employees.addemployee()
-     else:
-         Employees.addemployee_ifnotempty()
 
-
-
+    path = input("Enter file name:")
+   # data = pd.read_csv(str(path))
+    if os.stat(path).st_size == 0:
+        Employees.addemployee(str(path))
+    else:
+        Employees.addemployee_ifnotempty(str(path))
   if choice == 2:
       path=input("Add employees from path:")
       Employees.addemployeebypath(path)
