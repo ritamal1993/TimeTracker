@@ -1,7 +1,7 @@
 import Attendant_log
 import Employees
-import pandas as pd
 import os
+import csv
 
 
 def menu():
@@ -20,13 +20,17 @@ def menu():
   if choice==-1:
    path = input("Enter file name:")
    with open(path, 'w') as file:
-       pass
+       writer = csv.writer(file)
+       header = ['Id', 'name', 'phone', 'age']
+       # write the header
+       writer.writerow(header)
+       file.close()
   if choice == 0:
      return
   if choice == 1:
 
     path = input("Enter file name:")
-   # data = pd.read_csv(str(path))
+
     if os.stat(path).st_size == 0:
         Employees.addemployee(str(path))
     else:
@@ -38,7 +42,7 @@ def menu():
      id_todelete = int(input("enter employee id:"))
      Employees.removemployee(id_todelete)
   if choice ==4:
-      id_todelete = int(input("enter employee id:"))
+      id = (input("enter employee id:"))
       Employees.searchemployee(id)
   if choice == 5:
       path = input("deleting file name:")
