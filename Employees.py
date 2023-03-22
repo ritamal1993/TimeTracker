@@ -121,3 +121,16 @@ def showallemployees():
     file = input("input file name with ending format .csv .xls ...:")
     df = pd.read_csv(file)
     print(df)
+def open_file():
+    path = input("Enter file name:")
+    with open(path, 'w') as file:
+        writer = csv.writer(file)
+        header = ['Id', 'name', 'phone', 'age']
+        # write the header
+        writer.writerow(header)
+        file.close()
+
+def getname(_id):
+    df = pd.read_csv('database.csv')
+    rslt_df = df[df['Id'] == int(_id)]
+    return rslt_df['name'].values[0]
