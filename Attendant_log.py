@@ -23,15 +23,20 @@ class Attendant_log:
 
 
 
-def report_emp(self):
-    return None
+def report_emp():
+    print("Adding a new attendance, please enter the following details\n")
+    _id = int(input("Enter your employee ID\n"))
+    Employees.searchemployee(_id)
 
 
-def printall(self):
-    return None
+
+def printall(date):
+    df = pd.read_csv('Attendance_file.csv')
+    rslt_df = df[df['date'] <= date]
+    print(rslt_df)
 
 
-def wholate(self):
+def wholate():
     return None
 
 
@@ -39,7 +44,9 @@ def markAttendance():
     try:
         print("Adding a new attendens, please enter the following details\n")
         employee_id = int(input("Enter your employee ID\n"))
+
         name = Employees.getname(employee_id)
+
         now_date = datetime.now()
         date = now_date.strftime("%d/%m/%Y")
         now_time = datetime.now()

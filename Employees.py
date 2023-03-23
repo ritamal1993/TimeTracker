@@ -131,6 +131,14 @@ def open_file():
         file.close()
 
 def getname(_id):
-    df = pd.read_csv('database.csv')
-    rslt_df = df[df['Id'] == int(_id)]
-    return rslt_df['name'].values[0]
+
+       df = pd.read_csv('database.csv')
+       rslt_df = df[df['Id'] == int(_id)]
+       return rslt_df['name'].values[0]
+
+
+
+
+
+
+

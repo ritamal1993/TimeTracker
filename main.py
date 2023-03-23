@@ -1,6 +1,7 @@
 import Attendant_log
 import Employees
 import os
+import datetime
 import csv
 
 
@@ -68,7 +69,7 @@ def Attendance_menu():
     if choice == 2:
         Attendant_log.report_emp()
     if choice == 3:
-        Attendant_log.printall()
+        Attendant_log.printall(datetime.date.month)
     if choice == 4:
         Attendant_log.wholate()
     if choice ==0:
