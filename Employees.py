@@ -102,7 +102,10 @@ def searchemployee(_id):
     file = input("input file name:")
     df = pd.read_csv(file)
     rslt_df = df[df['Id'] == int(_id)]
-    print(rslt_df)
+    if(rslt_df.empty):
+        print("id not found in the data base")
+    else:
+        print(rslt_df)
 
 
 # deleting all the information in the file by path

@@ -6,11 +6,6 @@ import Employees
 
 class Attendant_log:
 
-
-
-
-
-
     def __init__(self, employee_id, time, name,date):
         self.employee_id = employee_id
         self.name = name
@@ -18,14 +13,10 @@ class Attendant_log:
         self.date=date
 
 
-
-
-
-
-
 def report_emp():
     print("Adding a new attendance, please enter the following details\n")
     _id = int(input("Enter your employee ID\n"))
+    print("you need to enter file name Attendance_file.csv\n")
     Employees.searchemployee(_id)
 
 
