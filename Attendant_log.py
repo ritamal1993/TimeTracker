@@ -30,14 +30,24 @@ def report_emp():
 
 
 
-def printall(date):
+def printall():
+    now_date = datetime.now()
+    date = now_date.strftime("%m/%Y")
     df = pd.read_csv('Attendance_file.csv')
-    rslt_df = df[df['date'] <= date]
-    print(rslt_df)
+    print(date)
+    df["date"] = pd.to_datetime(df["date"], dayfirst=True)
+    df2 = df[df['date'].dt.strftime('%m/%Y') == date]
+    print(df2)
 
 
 def wholate():
-    return None
+    now_date = datetime.now()
+    date = now_date.strftime("%m/%Y")
+    df = pd.read_csv('Attendance_file.csv')
+    print(date)
+    df["date"] = pd.to_datetime(df["date"], dayfirst=True)
+    df2 = df[(df['date'].dt.strftime('%m/%Y') == date) & (df['time'] > '09:30')]
+    print(df2)
 
 
 def markAttendance():
