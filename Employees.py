@@ -5,16 +5,14 @@ import csv
 
 class Employees:
 
+     def addemployee(self,employee_id,name,phone,age):
 
-
-    def addemployee(path):
-
-        try:
-            print("Adding a new employee, please enter the following details\n")
-            employee_id = int(input("Enter your employee ID\n"))
-            name = input("Enter your name\n")
-            phone = input("Enter your phone\n")
-            age = int(input("Enter your age\n"))
+       # try:
+          #  print("Adding a new employee, please enter the following details\n")
+           # employee_id = int(input("Enter your employee ID\n"))
+           # name = input("Enter your name\n")
+           # phone = input("Enter your phone\n")
+           # age = int(input("Enter your age\n"))
 
             data = ({
                 'Id': [employee_id],
@@ -27,22 +25,23 @@ class Employees:
             df = pd.DataFrame(data)
 
             # append data frame to CSV file
-            df.to_csv(path, mode='a', index=False, header=True)
+            df.to_csv('data.csv', mode='a', index=False, header=True)
 
-            print("Data appended successfully.")
+           # print("Data appended successfully.")
 
-        except ValueError:
-            print("Oops, something went wrong!")
+      #  except ValueError:
+          #  print("Oops, something went wrong!")
 
 
 # Add employee without header
-def addemployee_ifnotempty(path):
+def addemployee_ifnotempty(employee_id,name,phone,age):
     try:
-        print("Adding a new employee, please enter the following details\n")
-        employee_id = int(input("Enter your employee ID\n"))
-        name = input("Enter your name\n")
-        phone = input("Enter your phone\n")
-        age = int(input("Enter your age\n"))
+      #  print("Adding a new employee, please enter the following details\n")
+       # employee_id = int(input("Enter your employee ID\n"))
+        #name = input("Enter your name\n")
+        #phone = input("Enter your phone\n")
+        #age = int(input("Enter your age\n"))
+
 
         data = ({
             'Id': [employee_id],
@@ -55,8 +54,11 @@ def addemployee_ifnotempty(path):
         df = pd.DataFrame(data)
 
         # append data frame to CSV file
-
-        df.to_csv(path, mode='a', index=False, header=False)
+        if os.stat('database.csv').st_size == 0:
+         _header = True
+        else:
+         _header = False
+        df.to_csv('database.csv', mode='a', index=False, header=_header)
 
         print("Data appended successfully.")
 
@@ -121,9 +123,12 @@ def deletebypath(path):
 
 # show all employees from selected file
 def showallemployees():
+ try:
     file = input("input file name with ending format .csv .xls ...:")
     df = pd.read_csv(file)
     print(df)
+ except FileNotFoundError:
+     print("file not found")
 def open_file():
     path = input("Enter file name:")
     with open(path, 'w') as file:
