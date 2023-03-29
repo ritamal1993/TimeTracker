@@ -63,7 +63,7 @@ def start():
 
 def Attendance_menu():
     print("1.Mark Attendance\n")
-    print("2.Genarate Attendance report of an employee\n")
+    print("2.Generate Attendance report of an employee\n")
     print("3.print report for all active employees in last month\n")
     print("4.print an attendance report of all employees who were late(came after 9:30am)\n")
     choice = int(input("Please select an option using the numbers above\n"))
