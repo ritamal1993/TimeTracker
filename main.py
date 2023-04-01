@@ -7,7 +7,7 @@ import os
 from datetime import datetime
 import csv
 
-
+"""
 def menu():
     print("Welcome to the Employee database\n")
     print("-1. Add a new empty file\n")
@@ -85,17 +85,12 @@ def Attendance_menu():
 
 
 
-
-
-
-import time
-# importing webdriver from selenium
+"""
+import pandas as df
 import tkinter
 from tkinter import ttk
 import tkinter as tk
 from tkinter import messagebox
-import os
-import openpyxl
 import Employees
 from tkinter import *
 from functools import partial
@@ -104,12 +99,40 @@ from functools import partial
 def open_secondary_window():
 
     def delete_data():
-        id=emp_id.get()
-        Employees.removemployee(id)
+     id=emp_id.get()
+     Employees.removemployee(id)
 
     def add_data():
         path = file_path.get()
         Employees.addemployeebypath(path)
+
+    def delete_employee_bypath():
+        path=path_.get()
+        Employees.deletebypath(path)
+
+
+    def generate_attendance():
+
+        data_window = tk.Toplevel()
+        data_window.configure(bg='#333333')
+        data_window.title("Attendance report")
+        cols = list(df.columns)
+
+        tree = ttk.Treeview(data_window)
+        tree.pack()
+        tree["columns"] = cols
+        for i in cols:
+            tree.column(i, anchor="w")
+            tree.heading(i, text=i, anchor='w')
+
+        for index, row in df.iterrows():
+            tree.insert("", 0, text=index, values=list(row))
+
+    def report_currentmonth():
+        pass
+
+    def attendance_ofall():
+        pass
     def enter_data():
        # accepted = accept_var.get()
 
@@ -161,12 +184,12 @@ def open_secondary_window():
     first_name_entry.grid(row=1, column=0)
     last_name_entry.grid(row=1, column=1)
     rphone.grid(row=1, column=2)
-
-    # title_label = tkinter.Label(user_info_frame, text="Title")
-    # title_combobox = ttk.Combobox(user_info_frame, values=["", "Manager", "Senior", "Junior"])
-    # title_label.grid(row=0, column=3)
-    # title_combobox.grid(row=1, column=3)
-
+    """
+     title_label = tkinter.Label(user_info_frame, text="Title")
+     title_combobox = ttk.Combobox(user_info_frame, values=["", "Manager", "Senior", "Junior"])
+     title_label.grid(row=0, column=3)
+     title_combobox.grid(row=1, column=3)
+    """
     age_label = tkinter.Label(user_info_frame, text="Age:",bg= '#333333',fg="#FFFFFF")
     age_spinbox = tkinter.Spinbox(user_info_frame, from_=18, to=110)
     age_label.grid(row=2, column=0)
@@ -195,9 +218,10 @@ def open_secondary_window():
     file_path = tkinter.Entry(addemployee_from_file)
     file_path.grid(row=0, column=2)
     button_file = tkinter.Button(addemployee_from_file, text="Add new Employees", command=add_data,bg= '#333333',fg="#FFFFFF")
-    button_file.grid(row=3, column=0)
+    button_file.grid(row=3, column=1)
 
-
+    for widget in addemployee_from_file.winfo_children():
+        widget.grid_configure(padx=10, pady=5)
 
     ##########################################################################################################
     delete_from_file = tkinter.LabelFrame(frame_1, text="Delete employee by id", bg='#333333', fg="#FFFFFF")
@@ -210,22 +234,45 @@ def open_secondary_window():
     button_file = tkinter.Button(delete_from_file, text="delete Employees",
                                  command=delete_data, bg='#333333', fg="#FFFFFF")
 
-    button_file.grid(row=3, column=0)
+    button_file.grid(row=3, column=1)
 
-
+    for widget in delete_from_file.winfo_children():
+        widget.grid_configure(padx=10, pady=5)
 
 ##########################################################################################################
+    path_file = tkinter.LabelFrame(frame_1, text="Delete employees by path", bg='#333333', fg="#FFFFFF")
+    path_file .grid(row=3, column=0, padx=20, pady=10)
+    path_file .configure(bg="#333333")
+    path_ = tkinter.Label(path_file, text="path:", bg='#333333', fg="#FFFFFF")
+    path_.grid(row=0, column=0)
+    path_ = tkinter.Entry(path_file)
+    path_.grid(row=0, column=2)
+    button_file = tkinter.Button(path_file, text="add path",
+                                 command=delete_employee_bypath, bg='#333333', fg="#FFFFFF")
+
+    button_file.grid(row=3, column=1)
+
+    for widget in path_file.winfo_children():
+        widget.grid_configure(padx=10, pady=5)
+
+    #######################################################################################################
+    gerate_frame = tkinter.LabelFrame(frame_1, text="Delete employees by path", bg='#333333', fg="#FFFFFF")
+    gerate_frame.grid(row=3, column=0, padx=20, pady=10)
+    gerate_frame.configure(bg="#333333")
+    id_ = tkinter.Label(path_file, text="path:", bg='#333333', fg="#FFFFFF")
+    id_.grid(row=0, column=0)
+    path_ = tkinter.Entry(path_file)
+    path_.grid(row=0, column=2)
+    button_file = tkinter.Button(delete_from_file, text="delete Employees",
+                                 command=delete_employee_bypath, bg='#333333', fg="#FFFFFF")
+
+    button_file.grid(row=3, column=1)
 
 
 
 
-
-
-
-
-
-#######################################################################################################
-
+    for widget in path_file.winfo_children():
+        widget.grid_configure(padx=10, pady=5)
 
 
 
@@ -319,13 +366,13 @@ courses_frame.configure(bg= '#333333')
 courses_frame.grid(row=1, column=0, sticky="news", padx=20, pady=20)
 
 
-
-#registered_label = tkinter.LabelFrame(courses_frame, text="Mark Attendance")
-#registered_label.grid(row=0, column=0)
-#reg_status_var = tkinter.StringVar(value="Not Registered")
-#registered_check = tkinter.Checkbutton(courses_frame, text="Currently Registered",
-                                      # variable=reg_status_var, onvalue="Registered", offvalue="Not registered")
-
+"""
+registered_label = tkinter.LabelFrame(courses_frame, text="Mark Attendance")
+registered_label.grid(row=0, column=0)
+reg_status_var = tkinter.StringVar(value="Not Registered")
+registered_check = tkinter.Checkbutton(courses_frame, text="Currently Registered",
+                                      variable=reg_status_var, onvalue="Registered", offvalue="Not registered")
+"""
 
 id_label = tkinter.Label(courses_frame, text="Id:",bg= '#333333',fg="#FFFFFF",font={'Ariel',10})
 id_label.grid(row=2, column=0)
@@ -333,17 +380,17 @@ id_label = tkinter.Entry(courses_frame,font={'Ariel',10})
 id_label.grid(row=2, column=1)
 button = tkinter.Button(courses_frame, text="Mark Attendance", command=mark,bg= '#333333',fg="#FFFFFF")
 button.grid(row=3, column=1, sticky="news", padx=20, pady=20)
+"""
+numcourses_label = tkinter.Label(courses_frame, text="# Completed Courses")
+numcourses_spinbox = tkinter.Spinbox(courses_frame, from_=0, to='infinity')
+numcourses_label.grid(row=0, column=1)
+numcourses_spinbox.grid(row=1, column=1)
 
-#numcourses_label = tkinter.Label(courses_frame, text="# Completed Courses")
-#numcourses_spinbox = tkinter.Spinbox(courses_frame, from_=0, to='infinity')
-#numcourses_label.grid(row=0, column=1)
-#numcourses_spinbox.grid(row=1, column=1)
-
-#numsemesters_label = tkinter.Label(courses_frame, text="# Semesters")
-#numsemesters_spinbox = tkinter.Spinbox(courses_frame, from_=0, to="infinity")
-#numsemesters_label.grid(row=0, column=2)
-#numsemesters_spinbox.grid(row=1, column=2)
-
+numsemesters_label = tkinter.Label(courses_frame, text="# Semesters")
+numsemesters_spinbox = tkinter.Spinbox(courses_frame, from_=0, to="infinity")
+numsemesters_label.grid(row=0, column=2)
+numsemesters_spinbox.grid(row=1, column=2)
+"""
 for widget in courses_frame.winfo_children():
     widget.grid_configure(padx=10, pady=5)
 
