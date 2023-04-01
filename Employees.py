@@ -72,8 +72,8 @@ def addemployeebypath(path):
     try:
         print("Adding a new employees, from file:\n" + str(path))
         data = pd.read_csv(str(path))
-        file = input("Adding a new employees, to file you choose print the file name:\n")
-        data.to_csv(file, mode='a', index=False, header=False)
+        #file = input("Adding a new employees, to file you choose print the file name:\n")
+        data.to_csv('database.csv', mode='a', index=False, header=False)
 
     except ValueError:
         print("Oops, something went wrong!")
@@ -81,12 +81,12 @@ def addemployeebypath(path):
 
 # Delete employee manually from file the user choose
 def removemployee(employee):
-    print("removing employee id:\n" + str(employee))
-    file = input("deleting..., please write the file name:")
-    data = pd.read_csv(file)
+    #print("removing employee id:\n" + str(employee))
+   #file = input("deleting..., please write the file name:")
+    data = pd.read_csv('database.csv')
     data.set_index('Id', inplace=True)
-    data = data.drop(employee, axis=0)
-    data.to_csv(file)
+    data = data.drop(int(employee), axis=0)
+    data.to_csv('database.csv')
 
 
 # Delete file by path
