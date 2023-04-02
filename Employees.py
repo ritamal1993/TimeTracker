@@ -89,6 +89,12 @@ def removemployee(employee):
     data.to_csv('database.csv')
 
 
+    data1 = pd.read_csv('Attendance_file.csv')
+    data1.set_index('Id', inplace=True)
+    data1 = data.drop(int(employee), axis=0)
+    data1.to_csv('Attendance_file.csv')
+
+
 # Delete file by path
 def deletemployees(path):
     print("Deleting file:\n" + str(path))
@@ -100,14 +106,14 @@ def deletemployees(path):
 
 
 # search employee in specific file
-def searchemployee(_id):
-    file = input("input file name:")
+def searchemployee(_id,file):
+
     df = pd.read_csv(file)
     rslt_df = df[df['Id'] == int(_id)]
     if(rslt_df.empty):
         print("id not found in the data base")
     else:
-        print(rslt_df)
+        return rslt_df
 
 
 # deleting all the information in the file by path

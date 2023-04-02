@@ -16,11 +16,11 @@ class Attendant_log:
 
 #report of all employees in the attandce file
 
-def report_emp():
-    print("Adding a new attendance, please enter the following details\n")
-    _id = int(input("Enter your employee ID\n"))
-    print("you need to enter file name Attendance_file.csv\n")
-    Employees.searchemployee(_id)
+def report_emp(_id,file):
+   # print("Adding a new attendance, please enter the following details\n")
+   # _id = int(input("Enter your employee ID\n"))
+   # print("you need to enter file name Attendance_file.csv\n")
+    Employees.searchemployee(_id,file)
 
 
 #print all employees attendance in last month
@@ -28,20 +28,20 @@ def printall():
     now_date = datetime.now()
     date = now_date.strftime("%m/%Y")
     df = pd.read_csv('Attendance_file.csv')
-    print(date)
+    #print(date)
     df["date"] = pd.to_datetime(df["date"], dayfirst=True)
     df2 = df[df['date'].dt.strftime('%m/%Y') == date]
-    print(df2)
+    return df2
 
 #print all the employyes that where late last month
 def wholate():
     now_date = datetime.now()
     date = now_date.strftime("%m/%Y")
     df = pd.read_csv('Attendance_file.csv')
-    print(date)
+    #print(date)
     df["date"] = pd.to_datetime(df["date"], dayfirst=True)
     df2 = df[(df['date'].dt.strftime('%m/%Y') == date) & (df['time'] > '09:30')]
-    print(df2)
+    return df2
 
 #employee enters his id and marks attendance
 def markAttendance(_id):

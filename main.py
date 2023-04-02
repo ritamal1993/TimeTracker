@@ -6,6 +6,10 @@ import Employees
 import os
 from datetime import datetime
 import csv
+import pandas as pd
+from datetime import datetime
+import Employees
+
 
 """
 def menu():
@@ -80,12 +84,12 @@ def Attendance_menu():
         start()
 
 
-# start()
+start()
 #start==test
 
-
-
 """
+
+
 import pandas as df
 import tkinter
 from tkinter import ttk
@@ -112,10 +116,47 @@ def open_secondary_window():
 
 
     def generate_attendance():
-
         data_window = tk.Toplevel()
         data_window.configure(bg='#333333')
         data_window.title("Attendance report")
+        id1 = id_1.get()
+        df = Employees.searchemployee(int(id1), 'Attendance_file.csv')
+        print(df)
+        cols = list(df.columns)
+
+        tree = ttk.Treeview(data_window)
+        tree.pack()
+        tree["columns"] = cols
+        for i in cols:
+            tree.column(i, anchor="w")
+            tree.heading(i, text=i, anchor='w')
+
+        for index, row in df.iterrows():
+            tree.insert("", 0, text=index, values=list(row))
+    def search():
+        data_window = tk.Toplevel()
+        data_window.configure(bg='#333333')
+        data_window.title("Attendance report")
+        id =  emp__id.get()
+        df = Employees.searchemployee(int(id),'database.csv')
+        cols = list(df.columns)
+
+        tree = ttk.Treeview(data_window)
+        tree.pack()
+        tree["columns"] = cols
+        for i in cols:
+            tree.column(i, anchor="w")
+            tree.heading(i, text=i, anchor='w')
+
+        for index, row in df.iterrows():
+            tree.insert("", 0, text=index, values=list(row))
+    def report_currentmonth():
+        data_window = tk.Toplevel()
+        data_window.configure(bg='#333333')
+        data_window.title("Attendance report")
+        #id = id_.get()
+        df = Attendant_log.wholate()
+        #print(df)
         cols = list(df.columns)
 
         tree = ttk.Treeview(data_window)
@@ -128,11 +169,23 @@ def open_secondary_window():
         for index, row in df.iterrows():
             tree.insert("", 0, text=index, values=list(row))
 
-    def report_currentmonth():
-        pass
-
     def attendance_ofall():
-        pass
+        data_window = tk.Toplevel()
+        data_window.configure(bg='#333333')
+        data_window.title("Attendance report")
+        #id = id_.get()
+        df = Attendant_log.printall()
+        cols = list(df.columns)
+
+        tree = ttk.Treeview(data_window)
+        tree.pack()
+        tree["columns"] = cols
+        for i in cols:
+            tree.column(i, anchor="w")
+            tree.heading(i, text=i, anchor='w')
+
+        for index, row in df.iterrows():
+            tree.insert("", 0, text=index, values=list(row))
     def enter_data():
        # accepted = accept_var.get()
 
@@ -216,25 +269,36 @@ def open_secondary_window():
     file_path = tkinter.Label(addemployee_from_file, text="file path:", bg='#333333', fg="#FFFFFF")
     file_path.grid(row=0, column=0)
     file_path = tkinter.Entry(addemployee_from_file)
-    file_path.grid(row=0, column=2)
+    file_path.grid(row=0, column=1)
     button_file = tkinter.Button(addemployee_from_file, text="Add new Employees", command=add_data,bg= '#333333',fg="#FFFFFF")
     button_file.grid(row=3, column=1)
+
+
 
     for widget in addemployee_from_file.winfo_children():
         widget.grid_configure(padx=10, pady=5)
 
-    ##########################################################################################################
+##########################################################################################################
     delete_from_file = tkinter.LabelFrame(frame_1, text="Delete employee by id", bg='#333333', fg="#FFFFFF")
     delete_from_file.grid(row=2, column=0, padx=20, pady=10)
     delete_from_file.configure(bg="#333333")
     emp_id = tkinter.Label(delete_from_file, text="id:", bg='#333333', fg="#FFFFFF")
     emp_id .grid(row=0, column=0)
     emp_id = tkinter.Entry(delete_from_file)
-    emp_id .grid(row=0, column=2)
+    emp_id .grid(row=0, column=1)
     button_file = tkinter.Button(delete_from_file, text="delete Employees",
                                  command=delete_data, bg='#333333', fg="#FFFFFF")
+    button_file.grid(row=0, column=2)
+    emp__id = tkinter.Label(delete_from_file, text="search id:", bg='#333333', fg="#FFFFFF")
+    emp__id.grid(row=1, column=0)
+    emp__id = tkinter.Entry(delete_from_file)
+    emp__id.grid(row=1, column=1)
 
-    button_file.grid(row=3, column=1)
+    button_file1 = tkinter.Button(delete_from_file, text="search Employees",
+                                 command=search, bg='#333333', fg="#FFFFFF")
+
+    button_file1.grid(row=1, column=2)
+
 
     for widget in delete_from_file.winfo_children():
         widget.grid_configure(padx=10, pady=5)
@@ -247,63 +311,32 @@ def open_secondary_window():
     path_.grid(row=0, column=0)
     path_ = tkinter.Entry(path_file)
     path_.grid(row=0, column=2)
-    button_file = tkinter.Button(path_file, text="add path",
-                                 command=delete_employee_bypath, bg='#333333', fg="#FFFFFF")
-
+    button_file = tkinter.Button(path_file, text="add path",command=delete_employee_bypath, bg='#333333', fg="#FFFFFF")
     button_file.grid(row=3, column=1)
-
     for widget in path_file.winfo_children():
         widget.grid_configure(padx=10, pady=5)
-
-    #######################################################################################################
-    gerate_frame = tkinter.LabelFrame(frame_1, text="Delete employees by path", bg='#333333', fg="#FFFFFF")
-    gerate_frame.grid(row=3, column=0, padx=20, pady=10)
-    gerate_frame.configure(bg="#333333")
-    id_ = tkinter.Label(path_file, text="path:", bg='#333333', fg="#FFFFFF")
-    id_.grid(row=0, column=0)
-    path_ = tkinter.Entry(path_file)
-    path_.grid(row=0, column=2)
-    button_file = tkinter.Button(delete_from_file, text="delete Employees",
-                                 command=delete_employee_bypath, bg='#333333', fg="#FFFFFF")
-
-    button_file.grid(row=3, column=1)
-
-
-
-
-    for widget in path_file.winfo_children():
-        widget.grid_configure(padx=10, pady=5)
-
-
-
-
-
-
-
 
 #######################################################################################################
+    gerate_frame = tkinter.LabelFrame(frame_1, text="Generate Attendance report of an employee", bg='#333333', fg="#FFFFFF")
+    gerate_frame.grid(row=4, column=0, padx=20, pady=10)
+    gerate_frame.configure(bg="#333333")
+    id_1 = tkinter.Label(gerate_frame, text="id:**", bg='#333333', fg="#FFFFFF")
+    id_1.grid(row=0, column=0)
+    id_1 = tkinter.Entry(gerate_frame)
+    id_1.grid(row=0, column=1)
+    button_file_ = tkinter.Button(gerate_frame, text="generate",command=generate_attendance, bg='#333333', fg="#FFFFFF")
+    button_file_.grid(row=3, column=0)
 
+    button_file1 = tkinter.Button(gerate_frame, text="current month who late", command=report_currentmonth, bg='#333333', fg="#FFFFFF")
+    button_file1.grid(row=3, column=1)
 
+    button_file2 = tkinter.Button(gerate_frame, text="generate all last month", command=attendance_ofall, bg='#333333',
+                                 fg="#FFFFFF")
+    button_file2.grid(row=3, column=2)
 
-
-
-
-
-
-
-
-
-
-####################################################################################################
-    # Create a button to close (destroy) this window.
-    button_close = ttk.Button(
-        frame_1,
-        text="Close window",
-        command=frame_1.destroy
-    )
-    button_close.grid(row=4, column=0, sticky="news", padx=20, pady=20)
-#################################################################################
-
+    for widget in path_file.winfo_children():
+        widget.grid_configure(padx=10, pady=5)
+#######################################################################################################
 #####main window
 def mark():
     id = id_label.get()
@@ -319,7 +352,7 @@ frame = tkinter.Frame(window)
 frame.pack()
 frame.configure(bg='#333333')
 
-##################################################################
+#################################################################################################
 #login frame
 
 login_frame = tkinter.LabelFrame(frame, text="Login",bg= '#333333',fg="#FFFFFF",font={'Ariel',30})
