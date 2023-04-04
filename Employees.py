@@ -1,7 +1,13 @@
 import os
 import pandas as pd
 import csv
-
+import tkinter
+from tkinter import ttk
+import tkinter as tk
+from tkinter import messagebox
+import Employees
+from tkinter import *
+from functools import partial
 
 class Employees:
 
@@ -82,17 +88,16 @@ def addemployeebypath(path):
 # Delete employee manually from file the user choose
 def removemployee(employee):
     #print("removing employee id:\n" + str(employee))
-   #file = input("deleting..., please write the file name:")
+    #file = input("deleting..., please write the file name:")
     data = pd.read_csv('database.csv')
     data.set_index('Id', inplace=True)
     data = data.drop(int(employee), axis=0)
     data.to_csv('database.csv')
-
-
     data1 = pd.read_csv('Attendance_file.csv')
     data1.set_index('Id', inplace=True)
-    data1 = data.drop(int(employee), axis=0)
+    data1 = data1.drop(int(employee), axis=0)
     data1.to_csv('Attendance_file.csv')
+    print("file deleted")
 
 
 # Delete file by path
@@ -129,12 +134,31 @@ def deletebypath(path):
 
 # show all employees from selected file
 def showallemployees():
- try:
-    file = input("input file name with ending format .csv .xls ...:")
+        data_window = tk.Toplevel()
+       # data_window.configure(bg='#333333')
+        data_window.title("Employees database")
+        #id1 = id_1.get()
+        df = pd.read_csv('database.csv')
+        cols = list(df.columns)
+
+        tree = ttk.Treeview(data_window)
+        tree.pack()
+        tree["columns"] = cols
+        for i in cols:
+            tree.column(i, anchor="w")
+            tree.heading(i, text=i, anchor='w')
+
+        for index, row in df.iterrows():
+            tree.insert("", 0, text=index, values=list(row))
+            """
+    try:
+    #file = input("input file name with ending format .csv .xls ...:")
     df = pd.read_csv(file)
     print(df)
  except FileNotFoundError:
      print("file not found")
+            """
+
 def open_file():
     path = input("Enter file name:")
     with open(path, 'w') as file:
