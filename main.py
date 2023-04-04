@@ -452,7 +452,7 @@ id_label = ttk.Label(courses_frame, text="Id:")
 id_label.grid(row=2, column=0)
 id_label = ttk.Entry(courses_frame)
 id_label.grid(row=2, column=1)
-button = ttk.Button(courses_frame, text="Mark Attendance")
+button = ttk.Button(courses_frame, text="Mark Attendance", command=mark)
 button.grid(row=3, column=1, sticky="news", padx=20, pady=20)
 id_label.delete(0, "end")
 """
