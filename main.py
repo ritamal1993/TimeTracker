@@ -103,14 +103,18 @@ from functools import partial
 def open_secondary_window():
     def delete_data():
         id = emp_id.get()
+        emp_id.delete(0, "end")
         Employees.removemployee(id)
 
     def add_data():
         path = file_path.get()
+        file_path.delete(0, "end")
         Employees.addemployeebypath(path)
 
     def delete_employee_bypath():
         path = path_.get()
+        path_.delete(0, "end")
+
         Employees.deletebypath(path)
 
     def generate_attendance():
@@ -128,6 +132,7 @@ def open_secondary_window():
         data_window.title("Attendance report")
         id1 = id_1.get()
         df = Employees.searchemployee(int(id1), 'Attendance_file.csv')
+        id_1.delete(0, "end")
         # print(df)
         cols = list(df.columns)
 
@@ -150,7 +155,9 @@ def open_secondary_window():
         #data_window.configure(bg='#333333')
         data_window.title("Attendance report")
         id = emp__id.get()
+
         df = Employees.searchemployee(int(id), 'database.csv')
+        emp__id.delete(0, "end")
         cols = list(df.columns)
 
         tree = ttk.Treeview(data_window)
@@ -216,7 +223,8 @@ def open_secondary_window():
         # User info
         id = first_name_entry.get()
         name = last_name_entry.get()
-
+        first_name_entry.delete(0, "end")
+        last_name_entry.delete(0, "end")
         if id and name:
             # title = title_combobox.get()
             age = age_spinbox.get()
@@ -224,6 +232,7 @@ def open_secondary_window():
 
             # Course info
             phone = rphone.get()
+            rphone.delete(0, "end")
             # numcourses = numcourses_spinbox.get()
             # numsemesters = numsemesters_spinbox.get()
             Employees.addemployee_ifnotempty(id, name, phone, age)
@@ -344,7 +353,6 @@ def open_secondary_window():
     path_.grid(row=0, column=2)
     button_file =ttk.Button(path_file, text="add path", command=delete_employee_bypath)
     button_file.grid(row=3, column=1)
-    path_.delete(0, "end")
 
 
     for widget in path_file.winfo_children():
@@ -367,7 +375,7 @@ def open_secondary_window():
 
     button_file2 = ttk.Button(gerate_frame, text="generate all last month", command=attendance_ofall)
     button_file2.grid(row=4, column=2)
-    id_1.delete(0, "end")
+
     for widget in gerate_frame.winfo_children():
         widget.grid_configure(padx=10, pady=5)
 
@@ -376,7 +384,7 @@ def open_secondary_window():
 #####main window
 def mark():
     id = id_label.get()
-
+    id_label.delete(0, "end")
     if id:
         Attendant_log.markAttendance(id)
 
@@ -452,9 +460,13 @@ id_label = ttk.Label(courses_frame, text="Id:")
 id_label.grid(row=2, column=0)
 id_label = ttk.Entry(courses_frame)
 id_label.grid(row=2, column=1)
+
 button = ttk.Button(courses_frame, text="Mark Attendance", command=mark)
 button.grid(row=3, column=1, sticky="news", padx=20, pady=20)
-id_label.delete(0, "end")
+
+
+
+
 """
 numcourses_label = tkinter.Label(courses_frame, text="# Completed Courses")
 numcourses_spinbox = tkinter.Spinbox(courses_frame, from_=0, to='infinity')
