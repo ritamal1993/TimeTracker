@@ -26,7 +26,10 @@ $ pod install tkinter
 
 
 ```
-### now you can run the project!
+##  Project screenshot
+```
+```
 
+![Alt text](/forest-dark/first_window.png)
 
- <img src="\forest-dark\on-accent.png" />
+![Alt text](/forest-dark/second_window.png)
