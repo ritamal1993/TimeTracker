@@ -15,7 +15,7 @@ Project is created with:
 To run this project, install it locally:
 
 * start Pycharm clone from github.
-* then you need to download all the packages.
+
 
 
 ```
