@@ -254,7 +254,7 @@ def open_secondary_window():
 
     # Set the theme with the theme_use method
     ttk.Style().theme_use('forest-dark')
-    secondary_window.title("Employee traker")
+    secondary_window.title("Employee tracker")
 
     frame_1 = tkinter.Frame(secondary_window)
     frame_1.pack()
